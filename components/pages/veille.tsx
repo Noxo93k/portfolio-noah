@@ -1,6 +1,5 @@
 "use client"
 
-import { useRef } from "react"
 import { ExternalLink, Info } from "lucide-react"
 import { Atom, Bot, Crosshair, Microscope, Radar, Sparkles } from "lucide-react"
 import {
@@ -223,35 +222,8 @@ const storySteps = [
 ]
 
 export function VeillePage() {
-  const rafRef = useRef<number | null>(null)
   return (
-    <div
-      className="vt-stage"
-      onMouseMove={(e) => {
-        if (rafRef.current != null) return
-        const el = e.currentTarget
-        const clientX = e.clientX
-        const clientY = e.clientY
-        rafRef.current = window.requestAnimationFrame(() => {
-          const r = el.getBoundingClientRect()
-          const x = Math.min(1, Math.max(0, (clientX - r.left) / r.width))
-          const y = Math.min(1, Math.max(0, (clientY - r.top) / r.height))
-          el.style.setProperty("--mx", `${x}`)
-          el.style.setProperty("--my", `${y}`)
-          rafRef.current = null
-        })
-      }}
-      onMouseLeave={(e) => {
-        e.currentTarget.style.setProperty("--mx", "0.5")
-        e.currentTarget.style.setProperty("--my", "0.5")
-      }}
-    >
-      <div className="vt-blob b1" />
-      <div className="vt-blob b2" />
-      <div className="vt-blob b3" />
-      <div className="vt-noise" />
-
-      <div className="vt-layer">
+    <div>
       <h2
         className="vt-reveal vt-title-underline text-2xl font-semibold text-[var(--text-primary)] pb-4 mb-6"
         style={{ animationDelay: "0ms" }}
@@ -441,7 +413,6 @@ export function VeillePage() {
             </div>
           </a>
         ))}
-      </div>
       </div>
     </div>
   )
