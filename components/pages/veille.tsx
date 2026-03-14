@@ -1,5 +1,6 @@
 "use client"
 
+import { useRef } from "react"
 import { ExternalLink, Info } from "lucide-react"
 import { Atom, Bot, Crosshair, Microscope, Radar, Sparkles } from "lucide-react"
 import {
@@ -222,15 +223,23 @@ const storySteps = [
 ]
 
 export function VeillePage() {
+  const rafRef = useRef<number | null>(null)
   return (
     <div
       className="vt-stage"
       onMouseMove={(e) => {
-        const r = e.currentTarget.getBoundingClientRect()
-        const x = Math.min(1, Math.max(0, (e.clientX - r.left) / r.width))
-        const y = Math.min(1, Math.max(0, (e.clientY - r.top) / r.height))
-        e.currentTarget.style.setProperty("--mx", `${x}`)
-        e.currentTarget.style.setProperty("--my", `${y}`)
+        if (rafRef.current != null) return
+        const el = e.currentTarget
+        const clientX = e.clientX
+        const clientY = e.clientY
+        rafRef.current = window.requestAnimationFrame(() => {
+          const r = el.getBoundingClientRect()
+          const x = Math.min(1, Math.max(0, (clientX - r.left) / r.width))
+          const y = Math.min(1, Math.max(0, (clientY - r.top) / r.height))
+          el.style.setProperty("--mx", `${x}`)
+          el.style.setProperty("--my", `${y}`)
+          rafRef.current = null
+        })
       }}
       onMouseLeave={(e) => {
         e.currentTarget.style.setProperty("--mx", "0.5")
