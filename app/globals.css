@@ -260,8 +260,8 @@
     radial-gradient(circle at 85% 70%, rgba(232, 196, 116, 0.07), transparent 60%),
     radial-gradient(rgba(212, 168, 83, 0.10) 1px, transparent 1px);
   background-size: auto, auto, 20px 20px;
-  opacity: 0.72;
-  animation: stageDrift 16s linear infinite;
+  opacity: 0.35;
+  animation: none;
   mask-image: radial-gradient(circle at 50% 40%, rgba(0, 0, 0, 1), transparent 75%);
 }
 
@@ -279,8 +279,8 @@
     transparent 100%
   );
   mix-blend-mode: screen;
-  animation: stageSweep 5.8s ease-in-out infinite;
-  opacity: 0.55;
+  animation: none;
+  opacity: 0.0;
 }
 
 .site-ornaments {
